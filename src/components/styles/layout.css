@@ -1,0 +1,101 @@
+
+.container__main {
+    width: 100%;
+    align-items: center;
+    flex-grow: 1;
+
+    /* Layout the left sidebar, main content and right sidebar */
+    display: flex;
+    flex-direction: row;
+    color:beige;
+}
+
+.container__left {
+    text-align: left;
+    width: 50%;
+}
+
+.container__right {
+    text-align: center;
+    width: 30%;
+}
+.container__middle {
+    align-items: center;
+    flex-grow: 1;
+    width: 30%;
+}
+
+body {
+    background: url('/src/images/fondo.jpg') no-repeat fixed center center #333;
+    background-size: cover;
+}
+
+h3{
+    color:beige;
+}
+
+/* footer */
+
+.footer-style {
+    padding-top: 50px;  
+}
+
+footer {
+  color: beige;
+  width: 100%;
+}
+footer h3 {
+  margin-bottom: 30px;
+}
+footer .footer-above {
+  padding-top: 50px;
+  
+}
+footer .footer-col {
+  margin-bottom: 50px;
+}
+footer .footer-below {
+  padding: 25px 0;
+}
+
+.imagen{
+  padding: 5%;
+  width: 100%;
+  height: 100%;
+}
+
+.mb-3{
+  text-align: left;
+}
+
+li{
+  text-align: left;
+}
+
+.reservaciones {
+  width: 100%;
+  align-items: center;
+  flex-grow: 1;
+
+  /* Layout the left sidebar, main content and right sidebar */
+  display: flex;
+  flex-direction: row;
+  color:beige;
+}
+
+.container__res_left{
+  text-align: right;
+  width: 20%;  
+}
+
+.container__res {
+  background-color:beige;
+
+  align-items: center;
+  flex-grow: 1;
+  width: 80%;
+}
+
+.lReservacion{
+  color: rgb(90, 43, 9);
+}
