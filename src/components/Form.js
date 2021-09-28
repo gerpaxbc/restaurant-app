@@ -2,6 +2,8 @@ import { useRef } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 
+let UrlP=''
+
 export default function Form() {
     const service = useRef();
     const asistnumber = useRef();
@@ -27,7 +29,7 @@ export default function Form() {
         if ( dservice === '' || dnameasistant==='' || dnumber ==='' || dmobile==='' || ddate==='' || dtime ==='') return;
         
         datos= {dservice, dnumber, ddate, dtime, dnameasistant, dmobile, demail, dcomments, dstatus:'Pendiente'}
-        axios.post('https://backen-db.netlify.app:5000/message', datos);
+        axios.post(UrlP, datos);
 
         service.current.value= null;
         asistnumber.current.value= null;
