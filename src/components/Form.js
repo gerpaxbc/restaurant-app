@@ -27,7 +27,7 @@ export default function Form() {
         if ( dservice === '' || dnameasistant==='' || dnumber ==='' || dmobile==='' || ddate==='' || dtime ==='') return;
         
         datos= {dservice, dnumber, ddate, dtime, dnameasistant, dmobile, demail, dcomments, dstatus:'Pendiente'}
-        axios.post('http://localhost:5000/message', datos);
+        axios.post('https://backen-db.netlify.app:5000/message', datos);
 
         service.current.value= null;
         asistnumber.current.value= null;

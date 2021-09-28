@@ -4,14 +4,12 @@ import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css';
 import Reserva  from './Reserva';
 
-let datos = [{id:'', dservice:'', ddate:'', dtime:'', dnameasistant:'', dmobile:'', dcomments:'', dstatus:''}];
-
 export default function Reservaciones() {
     const bReserva = useRef();
     const [reservaciones, SetReservaciones] = useState([])
     
     function leeReservas(){
-        axios.get('http://localhost:5000/message')
+        axios.get('https://backen-db.netlify.app:5000/message')
         .then(res => {
             datos = res.data;
             SetReservaciones(datos.data) 
