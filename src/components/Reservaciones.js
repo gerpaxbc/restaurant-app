@@ -29,7 +29,7 @@ export default function Reservaciones() {
                 <div className="col-12 ">
                     <div className="input-group">
                         <input ref={bReserva} className="form-control" type="text"  placeholder="Reservations name"/>
-                        <button type="submit" className="btn btn-primary" id="verReserva" onClick={leeReservas}>Ver reservaciones</button>
+                        <button type="submit" className="btn btn-primary" id="verReserva" onClick={leeReservas}>Search...</button>
                     </div>
                 </div>  
                 <table className="table">
