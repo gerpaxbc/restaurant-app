@@ -9,15 +9,13 @@ export default function reserva({ reservaciones} ) {
         switch (servicio) {
             case '1':
               return 'Breakfast'
-              break;
             case '2':
                 return 'Lunch'
-                break;
             case '3':
                 return 'Dinner'
-                break;
+            default:
+                return 'Dinner'
           }
-
     }
     
     return (
