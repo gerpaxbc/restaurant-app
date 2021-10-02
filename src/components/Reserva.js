@@ -4,7 +4,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, deleteDoc, doc, updateDoc } from 'firebase/firestore/lite';
 
 const firebaseConfig = ({
-    apiKey: "AIzaSyAUETMk4syHnqxWXO4DcDrIkDFMLTfxOys",
+    apiKey: process.env.apiKey,
     authDomain: "gerpax-proyecto1.firebaseapp.com",
     databaseURL: "https://gerpax-proyecto1-default-rtdb.firebaseio.com",
     projectId: "gerpax-proyecto1",
@@ -17,8 +17,8 @@ const firebaseConfig = ({
 export default function reserva( {reservaciones} ) {
     
     async function handleClickChange(e) {
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        const appc = initializeApp(firebaseConfig);
+        const db = getFirestore(appc);
         const obj = e.target;
         
         const reservacionRef = doc(db, "messages", obj.id);
@@ -28,8 +28,8 @@ export default function reserva( {reservaciones} ) {
     }
 
     async function handleClickDel(e) {
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        const appd = initializeApp(firebaseConfig);
+        const db = getFirestore(appd);
         const obj = e.target;
         
         await deleteDoc(doc(db, "messages", obj.id));
