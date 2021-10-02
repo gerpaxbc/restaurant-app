@@ -1,8 +1,20 @@
 import { useRef } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import axios from 'axios';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, doc, setDoc } from 'firebase/firestore/lite';
 
-let UrlP=''
+const { v4: uuidv4 } = require('uuid')
+
+const firebaseConfig = ({
+    apiKey: process.env.apiKey,
+    authDomain: "gerpax-proyecto1.firebaseapp.com",
+    databaseURL: "https://gerpax-proyecto1-default-rtdb.firebaseio.com",
+    projectId: "gerpax-proyecto1",
+    storageBucket: "gerpax-proyecto1.appspot.com",
+    messagingSenderId: "889817513002",
+    appId: "1:889817513002:web:208eb7763fbc4740699753",
+    measurementId: "G-ZD179P9Y1K"
+  })
 
 export default function Form() {
     const service = useRef();
@@ -14,9 +26,7 @@ export default function Form() {
     const email = useRef();
     const comments = useRef();
 
-    
-    const handelSave = () => {
-        let datos =[];
+    async function guardaReserva(){
         const dservice = service.current.value;
         const dnumber = asistnumber.current.value;
         const ddate = date.current.value;
@@ -25,11 +35,29 @@ export default function Form() {
         const dmobile = mobile.current.value;
         const demail = email.current.value;
         const dcomments = comments.current.value;
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
         
         if ( dservice === '' || dnameasistant==='' || dnumber ==='' || dmobile==='' || ddate==='' || dtime ==='') return;
         
-        datos= {dservice, dnumber, ddate, dtime, dnameasistant, dmobile, demail, dcomments, dstatus:'Pendiente'}
-        axios.post(UrlP, datos);
+        const id = uuidv4()
+        await setDoc(doc(db, "messages",id), {
+            id: id,
+            dservice: dservice,
+            dnumber: dnumber,
+            ddate: ddate,
+            dtime: dtime,
+            dnameasistant: dnameasistant,
+            dmobile: dmobile,
+            demail: demail,
+            dcomments: dcomments,
+            dstatus: 'Pendiente'
+          });
+    }
+
+    const  handelSave = () => {
+        
+        guardaReserva()
 
         service.current.value= null;
         asistnumber.current.value= null;

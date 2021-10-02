@@ -1,22 +1,64 @@
 import React, { useState, useEffect }  from 'react';
 import { useRef } from "react";
-import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css';
 import Reserva  from './Reserva';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, query, getDocs, where  } from 'firebase/firestore/lite';
 
-let UrlG=''
-let datos = [{id:'', dservice:'', ddate:'', dtime:'', dnameasistant:'', dmobile:'', dcomments:'', dstatus:''}];
+const firebaseConfig = ({
+    apiKey: process.env.apiKey,
+    authDomain: "gerpax-proyecto1.firebaseapp.com",
+    databaseURL: "https://gerpax-proyecto1-default-rtdb.firebaseio.com",
+    projectId: "gerpax-proyecto1",
+    storageBucket: "gerpax-proyecto1.appspot.com",
+    messagingSenderId: "889817513002",
+    appId: "1:889817513002:web:208eb7763fbc4740699753",
+    measurementId: "G-ZD179P9Y1K"
+  })
+//* {id:'', dservice:'', ddate:'', dtime:'', dnameasistant:'', dmobile:'', dcomments:'', dstatus:''}
 
 export default function Reservaciones() {
+    let datos = [];
     const bReserva = useRef();
     const [reservaciones, SetReservaciones] = useState([])
-    
-    function leeReservas(){
-        axios.get(UrlG)
-        .then(res => {
-            datos = res.data;
-            SetReservaciones(datos.data) 
-        })        
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function leeReservas(){
+        let bNombre = ''
+        let q='';
+        let messagesCol='';
+        let snapshot=''
+
+        bNombre= bReserva.current.value
+        
+        if (bNombre==''){
+            messagesCol = collection(db, 'messages');
+            snapshot = await getDocs(messagesCol);
+        }else{
+            q = query(collection(db, "messages"), where("dnameasistant", "==", bNombre));
+            snapshot = await getDocs(q);
+        }
+        snapshot.forEach((doc) => {
+            const docData = doc.data()
+            datos.push({
+            ...docData, 
+            })
+        })
+        
+        SetReservaciones(datos.sort(function (a, b) {
+            if (a.ddate > b.ddate) {
+            return 1;
+            }
+            if (a.ddate < b.ddate) {
+            return -1;
+            }
+            // a must be equal to b
+            return 0;
+        }));
+        
+        bReserva.current.value=null;
     }
 
     return (
@@ -35,7 +77,6 @@ export default function Reservaciones() {
                 <table className="table">
                     <thead>
                         <tr>
-                        <th scope="col">Id</th>
                         <th scope="col">Service</th>
                         <th scope="col">Date</th>
                         <th scope="col">Time</th>
